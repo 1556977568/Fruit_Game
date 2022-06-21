@@ -1,0 +1,22 @@
+body {
+    margin: 0;
+}
+.bg {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: #20c997 no-repeat top center;
+    background-size: cover;
+    overflow: hidden;
+}
+
+.bg img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    -webkit-transition: all .2s ease-in;//
+    -moz-transition: all .2s ease-in;//
+    -ms-transition: all .2s ease-in;//
+    -o-transition: all .2s ease-in;//
+    transition: all .2s ease-in;//适应不同浏览器下落速度变快
+}

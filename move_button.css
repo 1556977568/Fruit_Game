@@ -1,0 +1,26 @@
+#button{
+    position: absolute;
+    /*top: 95%;*/
+    bottom: 0;
+    left: 45%;
+    text-align: center;
+}
+button{
+    color: yellow;
+    font-weight: bold;
+    font-size: 30px;
+    width: 100px;
+    height: 70px;
+    background-color: #0dcaf0;
+    border: none;
+    border-radius: 200px;
+}
+button:hover{
+    background-color: yellow;
+    color: #0dcaf0;
+    transform: scale(1.1);
+}
+.b1{
+    margin-right: 20px;
+}
+
