@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -8,38 +9,40 @@
     <link rel="stylesheet" href="move_button.css">
     <link rel="stylesheet" href="start.css">
 </head>
+
 <body>
-<div>
-    <div id="box" class="bg">
-        <div style="text-align: center;color: chartreuse;font-size: 40px;font-family: 华文行楷">←，→进行移动</div>
-        <div class="shuoM">
-            <p>抵制不良游戏，拒绝盗版游戏</p>
-            <p>注意自我保护，谨防上当受骗</p>
-            <p>受到游戏益脑，过度游戏伤身</p>
-            <p>合理安排时间，享受健康生活</p>
+    <div>
+        <div id="box" class="bg">
+            <div style="text-align: center;color: chartreuse;font-size: 40px;font-family: 华文行楷">←，→进行移动</div>
+            <div class="shuoM">
+                <p>抵制不良游戏，拒绝盗版游戏</p>
+                <p>注意自我保护，谨防上当受骗</p>
+                <p>受到游戏益脑，过度游戏伤身</p>
+                <p>合理安排时间，享受健康生活</p>
+            </div>
+            <button id="gameStop" style="font-family: 华文隶书">游戏暂停</button>
+            <button id="gameContinue">继续游戏</button>
+            <div class="score">得分：<span id="score"></span></div>
+            <div id="button">
+                <button class="b1" onclick="To_left()">←</button>
+                <button class="b2" onclick="To_right()">→</button>
+            </div>
         </div>
-        <button id="gameStop" style="font-family: 华文隶书">游戏暂停</button>
-        <button id="gameContinue">继续游戏</button>
-        <div class="score">得分：<span id="score"></span></div>
-        <div id="button">
-            <button class="b1" onclick="To_left()">←</button>
-            <button class="b2" onclick="To_right()">→</button>
+        <div id="Eat"></div>
+        <div id="gameStart_loadTime">
+            <div id="gameStart" style="font-family: 华文隶书">
+                输入游戏时间:<input type="number" id="gameTime">
+                <br>
+                <br>
+                <button id="bGameStart" style="font-family: 华文行楷">开始游戏</button>
+            </div>
+            <br>
+            <p id="loadTime"></p>
         </div>
     </div>
-    <div id="Eat"></div>
-    <div id="gameStart_loadTime">
-        <div id="gameStart" style="font-family: 华文隶书">
-            输入游戏时间:<input type="number" id="gameTime">
-            <br>
-            <br>
-            <button id="bGameStart" style="font-family: 华文行楷" >开始游戏</button>
-        </div>
-        <br>
-        <p id="loadTime"></p>
-    </div>
-</div>
 </body>
 <script src="Eat.js"></script>
 <script src="random_img.js"></script>
 <script src="move_button.js"></script>
+
 </html>
