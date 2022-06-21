@@ -1,0 +1,252 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>脱颖的打字游戏</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      font-size: 1.8rem;
+      font-family: "华文行楷";
+      color: #9F79EE;
+      transition: all .5s ease-in-out;
+    }
+
+    body {
+      padding: 2rem;
+      background-color: aquamarine;
+      position: relative;
+    }
+
+    span {
+      font-size: 1rem;
+      color: #f3778d;
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      animation: movingLight 1s linear infinite alternate;
+    }
+
+    @keyframes movingLight {
+      25% {
+        text-shadow: 5px 0 10px #ff0;
+      }
+      50% {
+        text-shadow: 0 5px 10px #00f;
+      }
+      75% {
+        text-shadow: -5px 0 10px #0f0;
+      }
+      100% {
+        text-shadow: 0 -5px 10px #f00;
+      }
+    }
+
+    h1 {
+      left: 40%;
+      top: 2rem;
+      font-size: 3rem;
+      text-align: center;
+      font-family: "华文楷体";
+      cursor: pointer;
+    }
+
+    h1:hover {
+      transform: scale(1.1);
+      text-shadow: 10px 10px 10px #ff0;
+    }
+
+    h2 {
+      text-align: center;
+      color: #f00;
+      margin-top: 1rem;
+      text-shadow: 10px 10px 10px #ff0;
+    }
+
+    button {
+      margin-top: 1rem;
+      cursor: pointer;
+      font-size: 2rem;
+      padding: 1rem 2rem;
+      border-radius: 5rem;
+      background-color: #FFFF00;
+      border-color: #9F79EE;
+      cursor: pointer;
+    }
+
+    button:hover {
+      color: #FFFF00;
+      background: #9F79EE;
+      border-color: #ffff00;
+    }
+
+    #container {
+      width: 550px;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: 10rem auto auto;
+    }
+
+    p {
+      font-size: 3rem;
+      font-family: "华文彩云";
+      width: 80px;
+      height: 80px;
+      padding: 10px;
+      text-align: center;
+      line-height: 80px;
+      position: absolute;
+      color: slateblue;
+      background-color: pink;
+      box-shadow: 0 0 10px 10px pink;
+      border-radius: 40px;
+      opacity: .7;
+      cursor: pointer;
+      font-weight: 800;
+    }
+  </style>
+</head>
+<body>
+<div id="container">
+  <h1 id="tuoYing" onclick="easyGameBeginning()">脱颖的游戏</h1>
+  <h2 id="coe">&nbsp;</h2>
+  <h2 id="scoreText">&nbsp;</h2>
+  <h2 id="correctRate">&nbsp;</h2>
+  <button id="start" onclick="gameBeginning()">困&nbsp;难</button>
+  <button id="pause" onclick="gamePause()">退&nbsp;出</button>
+</div>
+<span>&nbsp;&nbsp;&nbsp;游戏说明：该游戏会在网页当前可视大小中任意位置随机出现一个大写字母，鼠标点击或按下键盘上对应字母可清除它<br>
+    &nbsp;&nbsp;&nbsp;简单模式：消失一个生成一个（按下困难按钮可进入困难模式）<br>
+    &nbsp;&nbsp;&nbsp;困难模式：每秒生成两个并能获得得分（得分=正确个数*系数；屏幕分辨率越高、窗口越大，系数越大。困难模式下无法进入简单模式）
+</span>
+</body>
+<script>
+  alert("\n开始游戏前请先将窗口调整至合适大小\n\n点击“脱颖的游戏”可开始简单模式，点击困难按钮或按下任意字母键可开始困难模式，困难模式时按下ESC键可暂停游戏，暂停时按下ESC键可退出游戏")
+  let time = 0
+  let score = 0
+  let coefficient = 0
+  let pChar
+  let pausing = true
+  let gameInterval = null
+  let scoreText = document.getElementById("scoreText")
+  let correctRate = document.getElementById("correctRate")
+  setInterval(function () {
+    coefficient = Math.round(window.innerWidth * window.innerHeight / 1E4) / 100
+    document.getElementById("coe").innerText = "当前系数：" + coefficient
+  })
+
+  function generate() {
+    pChar = document.createElement("p")
+    pChar.innerText = String.fromCharCode(65 + Math.floor(Math.random() * 26))
+    let width = window.innerWidth - 110
+    let height = window.innerHeight - 110
+    let marginTop = Math.random() * height
+    let marginLeft = Math.random() * width
+    pChar.style.top = marginTop + "px"
+    pChar.style.left = marginLeft + "px"
+    document.body.appendChild(pChar)
+  }
+
+  function gameIntervalFunction() {
+    generate()
+    time += 0.5
+  }
+
+  function letterClick() {
+    let all = document.querySelectorAll("p")
+    for (let i = 0; i < all.length; i++) {
+      if (pausing) {
+        all[i].onclick = function () {
+        }
+      } else {
+        all[i].onclick = function () {
+          all[i].remove()
+          resultWriter()
+        }
+      }
+    }
+  }
+
+  function gameBeginning() {
+    if (pausing) {
+      pausing = false
+      gameInterval = setInterval("gameIntervalFunction()", 500)
+      setInterval("letterClick()", 500)
+      document.getElementById("tuoYing").onclick = function () {
+      }
+      document.getElementById("pause").innerText = "暂 停"
+      document.getElementById("pause").onclick = function () {
+        gamePause()
+      }
+      document.onkeydown = function ({keyCode}) {
+        if (keyCode === 27) {
+          gamePause()
+        } else {
+          let all = document.querySelectorAll("p")
+          for (let i = 0; i < all.length; i++) {
+            if (all[i].innerText === String.fromCharCode(keyCode)) {
+              all[i].remove()
+              resultWriter()
+              break
+            }
+            all[i].onclick = function () {
+              all[i].remove()
+            }
+          }
+        }
+      }
+    }
+  }
+
+  function gamePause() {
+    clearInterval(gameInterval)
+    document.getElementById("start").innerText = "继 续"
+    pausing = true
+    freeTime()
+  }
+
+  function freeTime() {
+    document.getElementById("pause").innerText = "退 出"
+    document.getElementById("pause").onclick = function () {
+      window.close()
+    }
+    document.onkeydown = function ({keyCode}) {
+      if (keyCode === 27) {
+        window.close()
+      } else {
+        gameBeginning()
+      }
+    }
+  }
+
+  function resultWriter() {
+    ++score
+    scoreText.innerText = "当前得分：" + String(Math.round(score * coefficient * 100) / 100)
+    console.log(coefficient)
+    correctRate.innerText = "正确率：" + String(Math.floor(score * 60 / time)) + "个/分钟"
+  }
+
+  freeTime()
+
+  function easyGameBeginning() {
+    document.getElementById("tuoYing").onclick = function () {
+    }
+    generate()
+    pChar.onclick = function () {
+      pChar.remove()
+      easyGameBeginning()
+    }
+    document.onkeydown = function ({keyCode}) {
+      if (String.fromCharCode(keyCode) === pChar.innerText) {
+        pChar.remove()
+        easyGameBeginning()
+      }
+    }
+  }
+</script>
+</html>

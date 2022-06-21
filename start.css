@@ -1,0 +1,73 @@
+body {
+    background-color: #6c757d;
+    font-size: 40px;
+}
+#gameTime{
+    height: 30px;
+    font-family: 华文行楷;
+    font-size: 20px;
+    margin-left: 40px;
+    border-radius: 200px;
+    border: none;
+}
+#gameStart_loadTime {
+    position: absolute;
+    top: 30%;
+    margin: auto;
+    left: 30%;
+    text-align: center;
+}
+#gameStop{
+    position: absolute;
+    top:0;
+}
+#gameContinue{
+    border-top: solid wheat 2px;
+    position: absolute;
+    top:30px;
+}
+@keyframes buttonColor{
+    0%{background-color:pink;}
+
+    50%{background-color:aqua;}
+
+    100%{background-color:chartreuse;}
+}
+#bGameStart{
+    animation: buttonColor 4s infinite;
+}
+#bGameStart,#gameStop,#gameContinue {
+    width: auto;
+    color: darksalmon;
+    background-color: blanchedalmond;
+    padding: 10px;
+    height: auto;
+    text-align: center;
+    border-radius: 200px;
+}
+#bGameStart,#gameStop{
+    transition: all .4s ease-in-out;
+}
+#bGameStart:hover,#gameStop:hover{
+    color: black;
+    background-color: greenyellow;
+}
+
+#Eat,#loadTime, #box,#gameStop,#gameContinue {
+    display: none;
+}
+.shuoM{
+    margin: 0 auto;
+    text-align: center;
+    font-size: 15px;
+    font-family: 华文行楷;
+    animation: color 7s infinite;
+}
+@keyframes color{
+    0%{color:black;}
+    20%{color:pink;}
+    40%{color: gold;}
+    60%{color:aqua;}
+    80%{color: blue;}
+    100%{color:chartreuse;}
+}
